@@ -1,0 +1,23 @@
+# Site settings
+title: Jekyll-Stout | A Jekyll based presentation template
+description: > # this means to ignore newlines until "baseurl:"
+  Write an awesome description for your new site here. You can edit this
+  line in _config.yml. It will appear in your document head meta (for
+  Google search results) and in your feed.xml site description.
+baseurl: "" # the subpath of your site, e.g. /blog/
+# url: "http://someuser.github.io/some-talk" # the base hostname & protocol for your site
+exclude: ["node_modules", "bower_components", "Gruntfile.js", "package.json", "bower.json", "css/dev", "js/dev", "readme.md", "CNAME"]
+
+# Personal Info
+presenter_name: "Arthur Guinness"
+presenter_url: "http://yourdomain.com"
+presenter_email: your-email@domain.com
+presenter_twitter: jekyllrb
+presenter_github:  jekyll
+
+# Build settings
+markdown: kramdown
+
+# Collection
+collections:
+ - slides

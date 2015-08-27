@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+{% assign slides = site.slides %}
+{% for slide in site.slides %}
+<section data-slide="{{ slide.title }}">
+    
+  <div class="slide_content {{ slide.pint }}">
+    {{ slide.content | markdownify }}
+  </div>
+  
+  {% if slide.note %}
+  <aside>
+    <p>{{ slide.note }}</p>
+  </aside>
+  {% endif %}
+</section>
+{% endfor %}

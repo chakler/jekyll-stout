@@ -1,0 +1,762 @@
+/*------------ Basic setup ------------*/
+
+// Default typeface
+$typeface: 'Libre Baskerville', serif;
+
+// Border
+  // Border width
+  $outlineWidth: 5px;
+  // Border color. Single color only. if you want to hide the border, just set this to transparent.
+  $outlineColor: #fff;
+
+// Default background of slides
+$background: linear-gradient(rgba(240,216,194,1), rgba(240,216,194,1) 14%, rgba(121,107,94,1) 15%, rgba(35,16,4,1) 35%);
+
+// Default text color of slides
+$textColor: #fcfcfc;
+
+// Add custom CSS here
+
+
+/*------------ Reset and Breakpoint ------------*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+$break-mobile: 480px;
+$break-tablet: 768px;
+$break-desktop: 1140px;
+$break-HD: 1600px;
+
+@mixin breakpoint($media) {
+  @if $media == s {
+    @media only screen and (max-width: $break-mobile - 1) { @content; }
+  }
+  @else if $media == pm {
+    @media only screen and (min-width: $break-mobile) and (max-width: $break-tablet - 1) { @content; }
+  }
+  @else if $media == lm {
+    @media only screen and (min-width: $break-tablet) and (max-width: $break-desktop - 1) { @content; }
+  }
+  @else if $media == l {
+    @media only screen and (min-width: $break-desktop) and (max-width: $break-HD - 1) { @content; }
+  }
+  @else if $media == xl {
+    @media only screen and (min-width: $break-HD) { @content; }
+  }
+}
+
+/*------------ Plugins ------------*/
+
+// NanoScroller
+.nano {
+  position : relative;
+  width    : 100%;
+  height   : 100%;
+  overflow : hidden;
+}
+.nano > .nano-content {
+  position      : absolute;
+  overflow      : scroll;
+  overflow-x    : hidden;
+  top           : 0;
+  right         : 0;
+  bottom        : 0;
+  left          : 0;
+}
+.nano > .nano-content:focus {
+  outline: thin dotted;
+}
+.nano > .nano-content::-webkit-scrollbar {
+  visibility: hidden;
+}
+.has-scrollbar > .nano-content::-webkit-scrollbar {
+  visibility: visible;
+}
+.nano > .nano-pane {
+  // background : rgba(0,0,0,.25);
+  position   : absolute;
+  width      : 7px;
+  right      : 0;
+  top        : 0;
+  bottom     : 0;
+  visibility : hidden\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : .01;
+  -webkit-transition    : .2s;
+  -moz-transition       : .2s;
+  -o-transition         : .2s;
+  transition            : .2s;
+  -moz-border-radius    : 3px;
+  -webkit-border-radius : 3px;
+  border-radius         : 3px;
+}
+.nano > .nano-pane > .nano-slider {
+  background: #ededed;
+  background: rgba(255,255,255,.5);
+  position              : relative;
+  margin                : 0 1px;
+  -moz-border-radius    : 2px;
+  -webkit-border-radius : 2px;
+  border-radius         : 2px;
+}
+.nano:hover > .nano-pane, .nano-pane.active, .nano-pane.flashed {
+  visibility : visible\9; /* Target only IE7 and IE8 with this hack */
+  opacity    : 0.99;
+}
+
+// Teopisto
+.teopisto {
+  // General Rules
+  .teopisto-preload & .passenger {
+    transition: all 0s linear!important;
+  }
+
+  // Effects
+  // Basic Effects
+  &.zoom {
+    >.passenger {
+      transform: scale(0.6);
+      opacity: 0.3;
+      transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    }
+    >.appear {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  &.fade {
+    >.passenger {
+      opacity: 0.3;
+      transition: opacity 0.6s ease-in-out;
+    }
+    >.appear {
+      opacity: 1;
+    }
+  }
+  
+  // Regular Slide Effects
+  &.slidebottom {
+    >.passenger {
+      transform: translate(0,30%);
+      opacity: 0.3;
+      transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    }
+    >.appear {
+      transform: translate(0,0);
+      opacity: 1;
+    }
+  }
+
+  &.slidetop {
+    >.passenger {
+      transform: translate(0,-30%);
+      opacity: 0.3;
+      transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    }
+    >.appear {
+      transform: translate(0,0);
+      opacity: 1;
+    }
+  }
+
+  &.slideleft {
+    >.passenger {
+      transform: translate(-30%,0);
+      opacity: 0.3;
+      transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    }
+    >.appear {
+      transform: translate(0,0);
+      opacity: 1;
+    }
+  }
+
+  &.slideright {
+    >.passenger {
+      transform: translate(30%,0);
+      opacity: 0.3;
+      transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    }
+    >.appear {
+      transform: translate(0,0);
+      opacity: 1;
+    }
+  }
+  
+  // 3D Effects
+  &.slidebottom3d {
+    perspective: 1200;
+    >.passenger {
+      transform: translate(0,30%) rotateX(-15deg);
+      opacity: 0.3;
+      transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    }
+    >.appear {
+      transform: translate(0,0) rotateX(0);
+      opacity: 1;
+    }
+  }
+
+  &.slidetop3d {
+    perspective: 1200;
+    >.passenger {
+      transform: translate(0,-30%) rotateX(15deg);
+      opacity: 0.3;
+      transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    }
+    >.appear {
+      transform: translate(0,0) rotateX(0);
+      opacity: 1;
+    }
+  }
+
+  &.slideleft3d {
+    perspective: 1200;
+    >.passenger {
+      transform: translate(-30%,0) rotateY(-30deg);
+      opacity: 0.3;
+      transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    }
+    >.appear {
+      transform: translate(0,0) rotateY(0);
+      opacity: 1;
+    }
+  }
+
+  &.slideright3d {
+    perspective: 1200;
+    >.passenger {
+      transform: translate(30%,0) rotateY(30deg);
+      opacity: 0.3;
+      transition: transform 0.6s ease-in-out, opacity 0.6s ease-in-out;
+    }
+    >.appear {
+      transform: translate(0,0) rotateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/*------------ Typography ------------*/
+
+h1 {
+  font-size: 3 / 1.2 * 1rem;
+  line-height: 3rem;
+  text-align: center;
+  font-weight: 700;
+  color: $textColor;
+}
+
+h2 {
+  font-size: 2 / 1.4 * 1rem;
+  line-height: 2rem;
+  color: $textColor;
+  padding-bottom: 1rem;
+  border-bottom: solid 1px #FFF;
+  margin-bottom: 1rem;
+}
+
+p {
+  font-size: 1 / 1.4 * 1rem;
+  line-height: 1rem;
+  margin-bottom: 1rem;
+
+  &:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  span {
+    display: block;
+    font-size: 0.8em;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+@include breakpoint(s) {
+  h1, h2, h3, h4, h5, h5, p, li {
+    font-size: 1 / 1.4 * 1rem!important;
+    line-height: 1rem!important;
+  }
+}
+
+/*------------ Tools ------------*/
+.group {
+  *zoom: 1;
+  &:before,
+  &:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+/*------------ General ------------*/
+
+.north, .east, .south, .west {
+  @include breakpoint(s) {
+      display: none;
+  }
+}
+
+.north {
+  top: 30px;
+  right: 60px;
+  left: 60px;
+  height: $outlineWidth;
+
+  &:after {
+    content: "";
+    position: absolute;
+    right: -60px - $outlineWidth;
+    top: -30px - $outlineWidth;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: $outlineWidth solid transparent;
+    border-left: $outlineWidth solid $outlineColor;
+    transform: rotate(-45deg);
+  }
+}
+.east {
+  right: 30px;
+  top: 60px;
+  bottom: 60px;
+  width: $outlineWidth;
+
+  &:after {
+    content: "";
+    position: absolute;
+    right: -30px - $outlineWidth;
+    bottom: -60px - $outlineWidth;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: $outlineWidth solid transparent;
+    border-left: $outlineWidth solid $outlineColor;
+    transform: rotate(45deg);
+  }
+}
+.south {
+  bottom: 30px;
+  right: 60px;
+  left: 60px;
+  height: $outlineWidth;
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: -60px - $outlineWidth;
+    bottom: -30px - $outlineWidth;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: $outlineWidth solid transparent;
+    border-right: $outlineWidth solid $outlineColor;
+    transform: rotate(-45deg);
+  }
+}
+.west {
+  left: 30px;
+  top: 60px;
+  bottom: 60px;
+  width: $outlineWidth;
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: -30px - $outlineWidth;
+    top: -60px - $outlineWidth;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: $outlineWidth solid transparent;
+    border-right: $outlineWidth solid $outlineColor;
+    transform: rotate(45deg);
+  }
+}
+
+.north, .east, .south, .west {
+  position: absolute;
+  background: $outlineColor;
+}
+
+.slide_content {
+
+  * {
+    @include breakpoint(s) {
+        text-align: left!important;
+    }
+  }
+
+  a {
+    color: $textColor;
+  }
+
+  &.title {
+    text-align: center;
+  }
+
+  &.title-multiliner {
+    font-size: 1.5 / 1.6 * 1rem;
+    line-height: 1.5rem;
+    margin-bottom: 0.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &.title-list {
+    ul {
+      list-style: disc inside;
+      margin-top: 1em;
+    }
+
+    ol {
+      list-style: decimal inside;
+      margin-top: 1em;
+    }
+
+    li {
+      font-size: 1.5 / 1.6 * 1rem;
+      line-height: 1.5rem;
+      margin-bottom: 0.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.title-image {
+    h2 {
+      font-size: 1 / 1.4 * 1rem;
+      line-height: 1rem;
+      text-align: center;
+      border-bottom: none;
+      margin-bottom: 1rem;
+      padding-bottom: 0;
+
+      @include breakpoint(s) {
+          font-size: 1.8em;
+      }
+    }
+    img {
+      max-height: 75%;
+      max-width: 100%;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+
+  &.oneliner {
+    p {
+      font-size: 2 / 1.4 * 1rem;
+      line-height: 2rem;
+      color: #FFF;
+      text-align: center;
+
+      span {
+        margin-bottom: 0.5em;
+        font-size: 1em;
+      }
+    }
+  }
+
+  &.multiliner {
+    p {
+      margin-top: 1rem;
+    }
+  }
+
+  &.list {
+    ol {
+      list-style: decimal;
+      padding-left: 50px;
+
+      @include breakpoint(s) {
+          padding-left: 1.5em;
+          font-size: 1.8em;
+      }
+    }
+
+    ul {
+      list-style: square;
+      padding-left: 50px;
+
+      @include breakpoint(s) {
+          padding-left: 1em;
+          font-size: 1.8em;
+      }
+    }
+
+    li {
+      margin-bottom: 0.8em;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  &.image {
+    img {
+      max-width: 100%;
+    }
+  }
+
+  &.quote {
+    blockquote {
+      p {
+        font-size: 2 / 1.4 * 1rem;
+        line-height: 2rem;
+
+        &:before {
+          content: "“"
+        }
+
+        &:after {
+          content: "”"
+        }
+      }
+      
+      footer {
+        font-size: 2 / 1.6 * 1rem;
+        line-height: 2rem;
+        margin-top: 1em;
+      }
+    }
+  }
+}
+
+.teopisto .passenger {
+  @include breakpoint(s) {
+      transition: none!important;
+      transform: none!important;
+      opacity: 1!important;
+  }
+}
+
+/*------------ Specific ------------*/
+html, body {
+  font-size: 36px;
+  line-height: 1rem;
+
+  @include breakpoint(l) {
+    font-size: 27px;
+  }
+
+  @include breakpoint(s) {
+    font-size: 16px;
+  }
+}
+
+body {
+  background: $background;
+  background-attachment: fixed;
+  background-size: cover;
+  font-size: 1rem;
+  line-height: 1rem;
+  font-family: $typeface;
+  color: #fff;
+  overflow: hidden;
+
+  @include breakpoint(s) {
+      background: #111;
+      overflow: auto;
+  }
+
+  * {
+    @include breakpoint(s) {
+        color: #ededed!important;
+    }
+  }
+}
+
+section {
+  position: relative;
+  height: 100%;
+  padding: 75px;
+  box-sizing: border-box;
+
+  @include breakpoint(s) {
+      height: auto;
+      padding: 45px 30px;
+      border-bottom: solid 3px #555;
+  }
+}
+
+.slide_content {
+  max-width: 60%;
+  margin: auto;
+
+  @include breakpoint(s) {
+      margin: 0!important;
+      max-width: 100%;
+      box-sizing: border-box;
+  }
+}
+
+aside {
+  display: none;
+
+  @include breakpoint(s) {
+      display: block;
+      padding: 15px;
+      background: lighten(orange, 5%);
+      margin-top: 15px;
+
+      &:before {
+        content: "Note:";
+        display: block;
+        margin-bottom: 0.8em;
+      }
+  }
+}
+
+nav {
+  font-family: $typeface;
+  font-size: 22px;
+  position: fixed;
+  bottom: -230px;
+  left: 0;
+  width: 100%;
+  height: 230px;
+  background: rgba(0,0,0,0.8);
+  padding: 15px;
+  box-sizing: border-box;
+  transition: transform 0.2s ease-in-out;
+
+  @include breakpoint(s) {
+      display: none;
+  }
+  
+  h3 {
+    font-size: 23px;
+    font-weight: 800;
+    // text-align: center;
+    padding-bottom: 10px;
+    height: 33px;
+    border-bottom: solid 1px #aaa;
+    box-sizing: border-box;
+  }
+
+  .menu {
+    width: 75%;
+    margin-right: 5%;
+    height: 167px;
+    float: left;
+  }
+
+  ul {
+    li {
+      padding: 10px 0;
+      // text-align: center;
+      border-bottom: solid 1px #555;
+      box-sizing: border-box;
+    }
+  }
+
+  a {
+    &, &:link, &:active, &:visited {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    &:hover {
+      color: #999;
+    }
+  }
+
+  &:before {
+    content: "";
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    top: -30px;
+    left: 0;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  &:hover {
+    transform: translateY(-230px);
+  }
+
+  .function {
+    width: 20%;
+    float: left;
+  }
+
+  button {
+    font-family: inherit;
+    font-weight: 800;
+    font-size: 22px;
+    height: 92.5px;
+    width: 100%;
+    border: none;
+    outline: none;
+    background: #bababa;
+    cursor: pointer;
+    appearance: none;
+    
+    &:hover {
+      background: #ededed;
+    }
+
+    &:active {
+      border-top: solid 5px #777;
+      background: #dbdbdb;
+    }
+
+    &:first-child {
+      margin-bottom: 15px;
+    }
+  }
+}
